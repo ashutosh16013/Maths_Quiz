@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private String m_set_ques;
+    private String m_set_ques="Click Next to Start the quiz";
     private static final String m_key = "Set_question";
     private static final String m_scorekey = "Set_marks";;
     private int m_k;
@@ -28,8 +28,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFalseButton = (Button)findViewById(R.id.button2);
         mTrueButton.setOnClickListener(this);
         mFalseButton.setOnClickListener(this);
-        if(savedInstanceState==null){
-            Log.d(TAG,"Savedisnull");
+        if(savedInstanceState!=null){
+            Log.d(TAG,"IsNotNull");
+            m_set_ques = savedInstanceState.getString(m_key);
+            if(m_set_ques.equals("Click Next to Start the quiz"))
+            {
+                TextView text1,text2;
+                text1 = (TextView)findViewById(R.id.text);
+                text2 = (TextView)findViewById(R.id.score);
+                text1.setText("Click Next to Start the quiz");
+                text2.setText("");
+            }
+            else {
+                mTotalScore = savedInstanceState.getInt(m_scorekey);
+                TextView text1, text2;
+                text1 = (TextView) findViewById(R.id.text);
+                text2 = (TextView) findViewById(R.id.score);
+                text1.setText(m_set_ques);
+                String score_to_text = String.valueOf(mTotalScore);
+                text2.setText("Your Score " + score_to_text);
+            }
+
         }
         Log.d(TAG,"Inside OnCreate");
     }
@@ -49,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
 
-                else {
+                if(result==0) {
                     Toast.makeText(getApplicationContext(), "InCorrect", Toast.LENGTH_SHORT).show();
                     mTotalScore--;
                 }
@@ -62,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT).show();
                     mTotalScore++;
                 }
-                else {
+                if(result==1) {
                     Toast.makeText(getApplicationContext(), "InCorrect", Toast.LENGTH_SHORT).show();
                     mTotalScore--;
                 }
@@ -130,21 +149,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onSaveInstanceState(savedInstanceState);
 
     }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState){
-
-        m_set_ques = savedInstanceState.getString(m_key);
-        mTotalScore = savedInstanceState.getInt(m_scorekey);
-        TextView text1,text2;
-        text1 = (TextView)findViewById(R.id.text);
-        text2 = (TextView)findViewById(R.id.score);
-        text1.setText(m_set_ques);
-        String score_to_text = String.valueOf(mTotalScore);
-        text2.setText("Your Score "+score_to_text);
-    }
-
-
-
 }
 
