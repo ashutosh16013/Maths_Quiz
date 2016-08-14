@@ -29,9 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTrueButton.setOnClickListener(this);
         mFalseButton.setOnClickListener(this);
         if(savedInstanceState==null){
-
-
-
+            Log.d(TAG,"Savedisnull");
         }
         Log.d(TAG,"Inside OnCreate");
     }
@@ -143,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         text2 = (TextView)findViewById(R.id.score);
         text1.setText(m_set_ques);
         String score_to_text = String.valueOf(mTotalScore);
-        text2.setText("Your Score "+mTotalScore);
+        text2.setText("Your Score "+score_to_text);
     }
 
 
