@@ -8,12 +8,13 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String m_set_ques="Click Next to Start the quiz";
     private static final String m_key = "Set_question";
     private static final String m_scorekey = "Set_marks";;
-    private int m_k;
+    private int m_k,flag=0;
     public static String TAG="MyAPP : ";
     private Button mTrueButton;
     private Button mFalseButton;
@@ -62,28 +63,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.button:
                 result = Main_Logic.check_prime(m_k);
-                if(result==1){
+                if(result==1&&flag==1){
                     Toast.makeText(getApplicationContext(),"Correct",Toast.LENGTH_SHORT).show();
                     mTotalScore++;
+                    flag=0;
 
                 }
 
-                if(result==0) {
+                if(result==0&&flag==1) {
                     Toast.makeText(getApplicationContext(), "InCorrect", Toast.LENGTH_SHORT).show();
                     mTotalScore--;
+                    flag=0;
                 }
                 p = String.valueOf(mTotalScore);
                 score_text.setText("Your Score "+p);
                 break;
             case R.id.button2:
                 result = Main_Logic.check_prime(m_k);
-                if(result==0) {
+                if(result==0&&flag==1) {
                     Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT).show();
                     mTotalScore++;
+                    flag=0;
                 }
-                if(result==1) {
+                if(result==1&&flag==1) {
                     Toast.makeText(getApplicationContext(), "InCorrect", Toast.LENGTH_SHORT).show();
                     mTotalScore--;
+                    flag=0;
                 }
                 p = String.valueOf(mTotalScore);
                 score_text.setText("Your Score "+p);
@@ -100,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG,m_set_ques);
         text = (TextView)findViewById(R.id.text);
         text.setText(m_set_ques);
+        flag=1;
     }
 
 
